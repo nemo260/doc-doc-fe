@@ -8,16 +8,7 @@
   "collection": "dist/collection/collection-manifest.json",
   "collection:main": "dist/collection/index.js",
   "unpkg": "dist/doc-doc-fe/doc-doc-fe.esm.js",
-  "exports": {
-    ".": {
-      "import": "./dist/doc-doc-fe/doc-doc-fe.esm.js",
-      "require": "./dist/doc-doc-fe/doc-doc-fe.cjs.js"
-    },
-    "./my-component": {
-      "import": "./dist/components/my-component.js",
-      "types": "./dist/components/my-component.d.js"
-    }
-  },
+  
   "repository": {
     "type": "git",
     "url": "https://github.com/ionic-team/stencil-component-starter.git"
