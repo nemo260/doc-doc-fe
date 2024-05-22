@@ -1,0 +1,42 @@
+:host {
+  display: block;
+}
+:root {
+  background-color: #f4fbfa;
+  --md-list-container-color: #f4fbfa;
+  --md-list-item-label-text-color: #161d1d;
+  --md-list-item-leading-icon-color: #006a6a;
+  --md-list-item-trailing-icon-color: #006a6a;
+  --md-list-item-leading-icon-size: 20px;
+  --md-list-item-trailing-icon-size: 20px;
+}
+
+md-list {
+  max-width: 100%;
+}
+
+md-filled-button.edit {
+  --md-filled-button-label-text-font: system-ui;
+  --md-sys-color-primary: #f0bd33;
+  --md-sys-color-on-primary: #FFFFFF;
+}
+
+md-filled-button.delete {
+  --md-filled-button-label-text-font: system-ui;
+  --md-sys-color-primary: #f44336;
+  --md-sys-color-on-primary: #FFFFFF;
+}
+
+md-filled-button.add {
+  --md-filled-button-label-text-font: system-ui;
+  --md-sys-color-primary: #4caf50;
+  --md-sys-color-on-primary: #FFFFFF;
+}
+
+/* border for md-list-item to look like a card */
+md-list-item.item {
+  border: 1px solid #006a6a;
+  border-radius: 5px;
+  margin: 10px;
+  padding: 10px;
+}

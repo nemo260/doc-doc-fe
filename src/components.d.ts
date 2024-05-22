@@ -7,19 +7,20 @@
 import { HTMLStencilElement, JSXBase } from "@stencil/core/internal";
 export namespace Components {
     interface DocDocApp {
-        /**
-          * The first name
-         */
-        "first": string;
-        /**
-          * The last name
-         */
-        "last": string;
-        /**
-          * The middle name
-         */
-        "middle": string;
+        "basePath": string;
     }
+    interface DocDocEdit {
+    }
+    interface DocDocList {
+    }
+}
+export interface DocDocEditCustomEvent<T> extends CustomEvent<T> {
+    detail: T;
+    target: HTMLDocDocEditElement;
+}
+export interface DocDocListCustomEvent<T> extends CustomEvent<T> {
+    detail: T;
+    target: HTMLDocDocListElement;
 }
 declare global {
     interface HTMLDocDocAppElement extends Components.DocDocApp, HTMLStencilElement {
@@ -28,27 +29,60 @@ declare global {
         prototype: HTMLDocDocAppElement;
         new (): HTMLDocDocAppElement;
     };
+    interface HTMLDocDocEditElementEventMap {
+        "close": string;
+    }
+    interface HTMLDocDocEditElement extends Components.DocDocEdit, HTMLStencilElement {
+        addEventListener<K extends keyof HTMLDocDocEditElementEventMap>(type: K, listener: (this: HTMLDocDocEditElement, ev: DocDocEditCustomEvent<HTMLDocDocEditElementEventMap[K]>) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
+        removeEventListener<K extends keyof HTMLDocDocEditElementEventMap>(type: K, listener: (this: HTMLDocDocEditElement, ev: DocDocEditCustomEvent<HTMLDocDocEditElementEventMap[K]>) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | EventListenerOptions): void;
+    }
+    var HTMLDocDocEditElement: {
+        prototype: HTMLDocDocEditElement;
+        new (): HTMLDocDocEditElement;
+    };
+    interface HTMLDocDocListElementEventMap {
+        "edit": string;
+    }
+    interface HTMLDocDocListElement extends Components.DocDocList, HTMLStencilElement {
+        addEventListener<K extends keyof HTMLDocDocListElementEventMap>(type: K, listener: (this: HTMLDocDocListElement, ev: DocDocListCustomEvent<HTMLDocDocListElementEventMap[K]>) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
+        removeEventListener<K extends keyof HTMLDocDocListElementEventMap>(type: K, listener: (this: HTMLDocDocListElement, ev: DocDocListCustomEvent<HTMLDocDocListElementEventMap[K]>) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | EventListenerOptions): void;
+    }
+    var HTMLDocDocListElement: {
+        prototype: HTMLDocDocListElement;
+        new (): HTMLDocDocListElement;
+    };
     interface HTMLElementTagNameMap {
         "doc-doc-app": HTMLDocDocAppElement;
+        "doc-doc-edit": HTMLDocDocEditElement;
+        "doc-doc-list": HTMLDocDocListElement;
     }
 }
 declare namespace LocalJSX {
     interface DocDocApp {
-        /**
-          * The first name
-         */
-        "first"?: string;
-        /**
-          * The last name
-         */
-        "last"?: string;
-        /**
-          * The middle name
-         */
-        "middle"?: string;
+        "basePath"?: string;
+    }
+    interface DocDocEdit {
+        "onClose"?: (event: DocDocEditCustomEvent<string>) => void;
+    }
+    interface DocDocList {
+        "onEdit"?: (event: DocDocListCustomEvent<string>) => void;
     }
     interface IntrinsicElements {
         "doc-doc-app": DocDocApp;
+        "doc-doc-edit": DocDocEdit;
+        "doc-doc-list": DocDocList;
     }
 }
 export { LocalJSX as JSX };
@@ -56,6 +90,8 @@ declare module "@stencil/core" {
     export namespace JSX {
         interface IntrinsicElements {
             "doc-doc-app": LocalJSX.DocDocApp & JSXBase.HTMLAttributes<HTMLDocDocAppElement>;
+            "doc-doc-edit": LocalJSX.DocDocEdit & JSXBase.HTMLAttributes<HTMLDocDocEditElement>;
+            "doc-doc-list": LocalJSX.DocDocList & JSXBase.HTMLAttributes<HTMLDocDocListElement>;
         }
     }
 }
