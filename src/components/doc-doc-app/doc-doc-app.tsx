@@ -35,11 +35,14 @@ export class MyComponent {
 
     const getComponent = () => {
       if (path.startsWith('/edit/')) {
-        return <doc-doc-edit onClose={() => navigate('/list')}></doc-doc-edit>;
+        const documentId = path.split('/')[2];
+        return <doc-doc-edit documentId={documentId} onClose={() => navigate('/list')}></doc-doc-edit>;
       } 
-      if (path===('/') || path.startsWith('/list')){
-        console.log(path)
-        return <doc-doc-list onEdit={(ev: CustomEvent<String>) => navigate('./edit/' + ev.detail)}></doc-doc-list>;
+      if (path==='/' || path.startsWith('/list')){
+        return <doc-doc-list 
+                 onEdit={(ev: CustomEvent<String>) => navigate('/edit/' + ev.detail)}
+                 onCreate={() => navigate('/edit/new')}
+               ></doc-doc-list>;
       }
     }
 

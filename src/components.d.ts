@@ -10,8 +10,11 @@ export namespace Components {
         "basePath": string;
     }
     interface DocDocEdit {
+        "documentId": string;
     }
     interface DocDocList {
+        "apiBase": string;
+        "docId": string;
     }
 }
 export interface DocDocEditCustomEvent<T> extends CustomEvent<T> {
@@ -48,6 +51,7 @@ declare global {
     };
     interface HTMLDocDocListElementEventMap {
         "edit": string;
+        "create": void;
     }
     interface HTMLDocDocListElement extends Components.DocDocList, HTMLStencilElement {
         addEventListener<K extends keyof HTMLDocDocListElementEventMap>(type: K, listener: (this: HTMLDocDocListElement, ev: DocDocListCustomEvent<HTMLDocDocListElementEventMap[K]>) => any, options?: boolean | AddEventListenerOptions): void;
@@ -74,9 +78,13 @@ declare namespace LocalJSX {
         "basePath"?: string;
     }
     interface DocDocEdit {
+        "documentId"?: string;
         "onClose"?: (event: DocDocEditCustomEvent<string>) => void;
     }
     interface DocDocList {
+        "apiBase"?: string;
+        "docId"?: string;
+        "onCreate"?: (event: DocDocListCustomEvent<void>) => void;
         "onEdit"?: (event: DocDocListCustomEvent<string>) => void;
     }
     interface IntrinsicElements {

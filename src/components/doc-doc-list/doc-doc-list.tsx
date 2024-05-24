@@ -1,4 +1,5 @@
-import { Component, Event, EventEmitter, Host, h, State } from '@stencil/core';
+import { Component, Event, EventEmitter, Prop, Host, h, State } from '@stencil/core';
+import { DocsApiFactory, Document } from '../../api/doc-doc-webapi';
 
 @Component({
   tag: 'doc-doc-list',
@@ -6,34 +7,33 @@ import { Component, Event, EventEmitter, Host, h, State } from '@stencil/core';
   shadow: true,
 })
 export class DocDocList {
-  @State() documents: Array<{ id: number, title: string, patient: string, date: string, report: string }> = [];
-
+  //@State() documents: Array<{ id: number, title: string, patient: string, date: string, report: string }> = [];
   @Event({ eventName: 'edit' }) edit: EventEmitter<string>;
+  @Event({ eventName: 'create' }) create: EventEmitter<void>;
+  @Prop() apiBase: string;
+  @Prop() docId: string;
+  @State() errorMessage: string;
+  @State() docs: Document[] = [];
 
-  // Simulate API call to fetch documents
-  async fetchDocuments() {
-    // Mocked data
-    const mockData = [
-      {
-        id: 1,
-        title: 'Vyšetrenie 1',
-        patient: 'Martin Nemec',
-        date: '01.01.2021',
-        report: 'Pacient sa neciti dobre'
-      },
-      {
-        id: 2,
-        title: 'Vyšetrenie 2',
-        patient: 'David Schmidt',
-        date: '01.01.2021',
-        report: 'Pacienta boli bruh'
+  private async getDocuments(): Promise<Document[]> {
+    try {
+      //const response = await DocsApiFactory(undefined, this.apiBase).getDocuments();
+      // fetch from localhost:8080/api/docs
+      const response = await fetch('http://localhost:8080/api/docs');
+      if (response.status === 200) {
+        //return response.data;
+        return await response.json();
+      } else {
+        this.errorMessage = 'Failed to fetch documents';
       }
-    ];
-    this.documents = mockData;
+    } catch (error) {
+      this.errorMessage = 'Failed to fetch documents';
+    }
+    return [];
   }
 
-  componentWillLoad() {
-    this.fetchDocuments();
+  async componentWillLoad() {
+    this.docs = await this.getDocuments() ?? [];
   }
 
   handleEditClick(id: number) {
@@ -43,22 +43,35 @@ export class DocDocList {
   }
 
   // Handle delete button click
-  handleDeleteClick(id: number) {
-    console.log('Delete clicked for document:', id);
-    // Handle delete logic here
+  async handleDeleteClick(id: string) {
+    const response = await fetch(`http://localhost:8080/api/doc/${id}`, {
+      method: 'DELETE'
+    });
+    if (response.status === 200) {
+      this.docs = this.docs.filter(doc => doc.id !== id);
+    } else {
+      console.log('Failed to delete document');
+    }
+  }
+
+  handleCreateClick() {
+    this.create.emit();
   }
 
   render() {
+    let newId = 'new';
+
     return (
       <Host class="app-container">
+        {this.errorMessage ? <div class="error">{this.errorMessage}</div> :
         <md-list>
           <md-list-item>
             <h2 slot="headline">Zoznam lekárskej dokumentácie</h2>
             <div slot="end">
-              <md-filled-button class="add">Vytvoriť nový dokument</md-filled-button>
+              <md-filled-button class="add" onClick={() => this.edit.emit(`${newId}`)}>Vytvoriť nový dokument</md-filled-button>
             </div>
           </md-list-item>
-          {this.documents.map(document => (
+          {this.docs.map(document => (
             <md-list-item class="item" id={document.id}>
               <h4 slot="headline">{document.title}</h4>
               <div slot="supporting-text"><b>Pacient:</b> {document.patient}</div>
@@ -68,7 +81,8 @@ export class DocDocList {
               <md-filled-button class="delete" slot="end" onClick={() => this.handleDeleteClick(document.id)}><md-icon >delete</md-icon></md-filled-button>  
             </md-list-item>
           ))}
-        </md-list>
+        </md-list> 
+        }
       </Host>
     );
   }
