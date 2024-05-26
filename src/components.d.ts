@@ -7,9 +7,11 @@
 import { HTMLStencilElement, JSXBase } from "@stencil/core/internal";
 export namespace Components {
     interface DocDocApp {
+        "apiBase": string;
         "basePath": string;
     }
     interface DocDocEdit {
+        "apiBase": string;
         "documentId": string;
     }
     interface DocDocList {
@@ -75,9 +77,11 @@ declare global {
 }
 declare namespace LocalJSX {
     interface DocDocApp {
+        "apiBase"?: string;
         "basePath"?: string;
     }
     interface DocDocEdit {
+        "apiBase"?: string;
         "documentId"?: string;
         "onClose"?: (event: DocDocEditCustomEvent<string>) => void;
     }

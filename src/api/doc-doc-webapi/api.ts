@@ -140,11 +140,11 @@ export const DocsApiAxiosParamCreator = function (configuration?: Configuration)
         /**
          * 
          * @summary Get a document by ID
-         * @param {number} id ID of document to return
+         * @param {string} id ID of document to return
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getDocumentById: async (id: number, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+        getDocumentById: async (id: string, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
             // verify required parameter 'id' is not null or undefined
             assertParamExists('getDocumentById', 'id', id)
             const localVarPath = `/doc/{id}`
@@ -276,11 +276,11 @@ export const DocsApiFp = function(configuration?: Configuration) {
         /**
          * 
          * @summary Get a document by ID
-         * @param {number} id ID of document to return
+         * @param {string} id ID of document to return
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async getDocumentById(id: number, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Document>> {
+        async getDocumentById(id: string, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Document>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.getDocumentById(id, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
@@ -339,11 +339,11 @@ export const DocsApiFactory = function (configuration?: Configuration, basePath?
         /**
          * 
          * @summary Get a document by ID
-         * @param {number} id ID of document to return
+         * @param {string} id ID of document to return
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getDocumentById(id: number, options?: any): AxiosPromise<Document> {
+        getDocumentById(id: string, options?: any): AxiosPromise<Document> {
             return localVarFp.getDocumentById(id, options).then((request) => request(axios, basePath));
         },
         /**
@@ -398,12 +398,12 @@ export interface DocsApiInterface {
     /**
      * 
      * @summary Get a document by ID
-     * @param {number} id ID of document to return
+     * @param {string} id ID of document to return
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof DocsApiInterface
      */
-    getDocumentById(id: number, options?: AxiosRequestConfig): AxiosPromise<Document>;
+    getDocumentById(id: string, options?: AxiosRequestConfig): AxiosPromise<Document>;
 
     /**
      * 
@@ -461,12 +461,12 @@ export class DocsApi extends BaseAPI implements DocsApiInterface {
     /**
      * 
      * @summary Get a document by ID
-     * @param {number} id ID of document to return
+     * @param {string} id ID of document to return
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof DocsApi
      */
-    public getDocumentById(id: number, options?: AxiosRequestConfig) {
+    public getDocumentById(id: string, options?: AxiosRequestConfig) {
         return DocsApiFp(this.configuration).getDocumentById(id, options).then((request) => request(this.axios, this.basePath));
     }
 

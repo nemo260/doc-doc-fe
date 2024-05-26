@@ -1,5 +1,6 @@
 import { Component, Event, EventEmitter, State, Prop, h, Host } from '@stencil/core';
 //import { DocsApiFactory, Document } from '../../api/doc-doc-webapi';
+import { DocsApiFactory } from '../../api/doc-doc-webapi';
 import { uuidv4 } from '../../utils/utils';
 
 @Component({
@@ -16,6 +17,7 @@ export class DocDocEdit {
     report: ''
   };
   @Prop() documentId: string;
+  @Prop() apiBase: string;
   @Event({ eventName: 'close' }) close: EventEmitter<string>;
 
   componentWillLoad() {
@@ -27,9 +29,10 @@ export class DocDocEdit {
 
     if (path !== '/edit/new') {
       
-      const response = await fetch(`http://localhost:8080/api/doc/${this.documentId}`);
+      //const response = await fetch(`http://localhost:8080/api/doc/${this.documentId}`);
+      const response = await DocsApiFactory(undefined, this.apiBase).getDocumentById(this.documentId);
       if (response.status === 200) {
-        const data = await response.json();
+        const data = response.data;
         this.document = data;
       } else {
         console.log('Failed to fetch documents');

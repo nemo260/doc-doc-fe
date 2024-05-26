@@ -1,6 +1,6 @@
 import { Component, Event, EventEmitter, Prop, Host, h, State } from '@stencil/core';
-import { Document } from '../../api/doc-doc-webapi';
-//import { DocsApiFactory, Document } from '../../api/doc-doc-webapi';
+//import { Document } from '../../api/doc-doc-webapi';
+import { DocsApiFactory, Document } from '../../api/doc-doc-webapi';
 
 @Component({
   tag: 'doc-doc-list',
@@ -18,12 +18,12 @@ export class DocDocList {
 
   private async getDocuments(): Promise<Document[]> {
     try {
-      //const response = await DocsApiFactory(undefined, this.apiBase).getDocuments();
+      const response = await DocsApiFactory(undefined, this.apiBase).getDocuments();
       // fetch from localhost:8080/api/docs
-      const response = await fetch('http://localhost:8080/api/docs');
+      //const response = await fetch('http://localhost:8080/api/docs');
       if (response.status === 200) {
-        //return response.data;
-        return await response.json();
+        return response.data;
+        //return await response.json();
       } else {
         this.errorMessage = 'Failed to fetch documents';
       }

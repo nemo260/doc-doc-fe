@@ -9,6 +9,7 @@ export class DocDocApp {
 
   @Prop() basePath: string="";
   @State() private relativePath = "";
+  @Prop() apiBase: string;
 
   componentWillLoad() {
     const baseUri = new URL(this.basePath, document.baseURI || "/").pathname;
@@ -40,12 +41,12 @@ export class DocDocApp {
     const getComponent = () => {
       if (path.startsWith('/edit/')) {
         const documentId = path.split('/')[2];
-        return <doc-doc-edit documentId={documentId} onClose={() => navigate('/list')}></doc-doc-edit>;
+        return <doc-doc-edit documentId={documentId} onClose={() => navigate('/list')} apiBase={this.apiBase}></doc-doc-edit>;
       } 
       if (path==='/' || path.startsWith('/list')){
         return <doc-doc-list 
                  onEdit={(ev: CustomEvent<String>) => navigate('/edit/' + ev.detail)}
-                 onCreate={() => navigate('/edit/new')}
+                 onCreate={() => navigate('/edit/new')} apiBase={this.apiBase}
                ></doc-doc-list>;
       }
     }
