@@ -1,5 +1,5 @@
 import { Component, Event, EventEmitter, State, Prop, h, Host } from '@stencil/core';
-import { DocsApiFactory, Document } from '../../api/doc-doc-webapi';
+//import { DocsApiFactory, Document } from '../../api/doc-doc-webapi';
 import { uuidv4 } from '../../utils/utils';
 
 @Component({

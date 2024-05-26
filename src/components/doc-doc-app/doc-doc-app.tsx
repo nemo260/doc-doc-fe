@@ -1,4 +1,4 @@
-import { Component, State, Host, Prop, h } from '@stencil/core';
+import { Component, Host, Prop, h } from '@stencil/core';
 
 @Component({
   tag: 'doc-doc-app',
@@ -6,7 +6,6 @@ import { Component, State, Host, Prop, h } from '@stencil/core';
   shadow: true,
 })
 export class MyComponent {
-  @State() private relativePath = "";
 
   @Prop() basePath: string="";
 
@@ -15,9 +14,7 @@ export class MyComponent {
 
     const toRelative = (path: string) => {
       if (path.startsWith(baseUri)) {
-        this.relativePath = path.slice(baseUri.length)
       } else {
-        this.relativePath = ""
       }
     }
 

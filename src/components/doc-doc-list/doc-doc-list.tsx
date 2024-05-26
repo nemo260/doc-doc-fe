@@ -1,5 +1,6 @@
 import { Component, Event, EventEmitter, Prop, Host, h, State } from '@stencil/core';
-import { DocsApiFactory, Document } from '../../api/doc-doc-webapi';
+import { Document } from '../../api/doc-doc-webapi';
+//import { DocsApiFactory, Document } from '../../api/doc-doc-webapi';
 
 @Component({
   tag: 'doc-doc-list',
