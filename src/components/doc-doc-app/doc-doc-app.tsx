@@ -57,6 +57,8 @@ export class DocDocApp {
 
     return (
       <Host>
+          <p>Autor: Martin Nemec</p>
+          <br />
           {getComponent()}
       </Host>
     );
