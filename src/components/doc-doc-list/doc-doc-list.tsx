@@ -19,18 +19,16 @@ export class DocDocList {
   private async getDocuments(): Promise<Document[]> {
     try {
       const response = await DocsApiFactory(undefined, this.apiBase).getDocuments();
-      // fetch from localhost:8080/api/docs
-      //const response = await fetch('http://localhost:8080/api/docs');
       if (response.status === 200) {
         return response.data;
-        //return await response.json();
       } else {
         this.errorMessage = 'Failed to fetch documents';
+        return this.getMockDocuments();
       }
     } catch (error) {
       this.errorMessage = 'Failed to fetch documents';
+      return this.getMockDocuments();
     }
-    return [];
   }
 
   async componentWillLoad() {
@@ -40,10 +38,8 @@ export class DocDocList {
   handleEditClick(id: number) {
     console.log('Edit clicked for document:', id);
     window.navigation.navigate('/edit/' + id);
-    // Handle edit logic here
   }
 
-  // Handle delete button click
   async handleDeleteClick(id: string) {
     const response = await fetch(`http://localhost:8080/api/doc/${id}`, {
       method: 'DELETE'
@@ -55,6 +51,13 @@ export class DocDocList {
     }
   }
 
+  private getMockDocuments(): Document[] {
+    return [
+      { id: '1', title: 'Mock Document 1', patient: 'John Doe', date: '2023-01-01', report: 'Report content for mock document 1' },
+      { id: '2', title: 'Mock Document 2', patient: 'Jane Smith', date: '2023-02-01', report: 'Report content for mock document 2' }
+    ];
+  }
+
   handleCreateClick() {
     this.create.emit();
   }
@@ -64,7 +67,6 @@ export class DocDocList {
 
     return (
       <Host class="app-container">
-        {this.errorMessage ? <div class="error">{this.errorMessage}</div> :
         <md-list>
           <md-list-item>
             <h2 slot="headline">Zoznam lekárskej dokumentácie</h2>
@@ -83,7 +85,6 @@ export class DocDocList {
             </md-list-item>
           ))}
         </md-list> 
-        }
       </Host>
     );
   }
