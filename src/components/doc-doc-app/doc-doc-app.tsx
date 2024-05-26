@@ -10,6 +10,7 @@ export class DocDocApp {
   @Prop() basePath: string="";
   @State() private relativePath = "";
   @Prop() apiBase: string;
+  @Prop() documentId: string;
 
   componentWillLoad() {
     const baseUri = new URL(this.basePath, document.baseURI || "/").pathname;
@@ -32,28 +33,38 @@ export class DocDocApp {
   }
 
   render() {
-    let path = window.location.pathname;
+    let element = 'list';
+    let docId = 'new';
 
-    if (this.relativePath) {
-      this.relativePath = this.relativePath;
+    if (this.relativePath.startsWith("list")) {
+      element = 'list';
+    } 
+    
+    if (this.relativePath.startsWith("edit")) {
+      element = 'edit';
+      docId = this.relativePath.split("/")[1];
+    }
+
+    const navigate = (path: string) => {
+      const absolute = new URL(path, new URL(this.basePath, document.baseURI)).pathname;
+      window.navigation.navigate(absolute)
     }
 
     const getComponent = () => {
-      if (path.startsWith('/edit/')) {
-        const documentId = path.split('/')[2];
-        return <doc-doc-edit documentId={documentId} onClose={() => navigate('/list')} apiBase={this.apiBase}></doc-doc-edit>;
-      } 
-      if (path==='/' || path.startsWith('/list')){
-        return <doc-doc-list 
-                 onEdit={(ev: CustomEvent<String>) => navigate('/edit/' + ev.detail)}
-                 onCreate={() => navigate('/edit/new')} apiBase={this.apiBase}
-               ></doc-doc-list>;
+      switch (element) {
+        case 'list':
+          return <doc-doc-list 
+          onEdit={(ev: CustomEvent<String>) => navigate('/edit/' + ev.detail)}
+          onCreate={() => navigate('/edit/new')} apiBase={this.apiBase}
+        ></doc-doc-list>;
+        case 'edit':
+          return <doc-doc-edit documentId={docId} onClose={() => navigate('/list')} apiBase={this.apiBase}></doc-doc-edit>;
+        default:
+          return <doc-doc-list 
+          onEdit={(ev: CustomEvent<String>) => navigate('/edit/' + ev.detail)}
+          onCreate={() => navigate('/edit/new')} apiBase={this.apiBase}
+        ></doc-doc-list>; 
       }
-    }
-
-    const navigate = (path:string) => {
-      const absolute = new URL(path, new URL(this.basePath, document.baseURI)).pathname;
-      window.navigation.navigate(absolute)
     }
 
     return (

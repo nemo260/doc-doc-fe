@@ -9,6 +9,7 @@ export namespace Components {
     interface DocDocApp {
         "apiBase": string;
         "basePath": string;
+        "documentId": string;
     }
     interface DocDocEdit {
         "apiBase": string;
@@ -79,6 +80,7 @@ declare namespace LocalJSX {
     interface DocDocApp {
         "apiBase"?: string;
         "basePath"?: string;
+        "documentId"?: string;
     }
     interface DocDocEdit {
         "apiBase"?: string;
