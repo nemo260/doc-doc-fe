@@ -60,10 +60,7 @@ export class DocDocApp {
         case 'edit':
           return <doc-doc-edit documentId={docId} onClose={() => navigate('/list')} apiBase={this.apiBase}></doc-doc-edit>;
         default:
-          return <doc-doc-list 
-          onEdit={(ev: CustomEvent<String>) => navigate('/edit/' + ev.detail)}
-          onCreate={() => navigate('/edit/new')} apiBase={this.apiBase}
-        ></doc-doc-list>; 
+          return <p>Page not found</p>
       }
     }
 
@@ -71,7 +68,7 @@ export class DocDocApp {
       <Host>
           <p>Autor: Martin Nemec</p>
           <br />
-          <div class="content">
+          <div class="component">
             {getComponent()}
           </div>
       </Host>
