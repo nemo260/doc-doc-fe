@@ -106,11 +106,11 @@ export const DocsApiAxiosParamCreator = function (configuration?: Configuration)
         /**
          * 
          * @summary Delete a document
-         * @param {number} id ID of document to delete
+         * @param {string} id ID of document to delete
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        deleteDocument: async (id: number, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+        deleteDocument: async (id: string, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
             // verify required parameter 'id' is not null or undefined
             assertParamExists('deleteDocument', 'id', id)
             const localVarPath = `/doc/{id}`
@@ -204,12 +204,12 @@ export const DocsApiAxiosParamCreator = function (configuration?: Configuration)
         /**
          * 
          * @summary Update a document
-         * @param {number} id ID of document to update
+         * @param {string} id ID of document to update
          * @param {Document} document Document to update
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        updateDocument: async (id: number, document: Document, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+        updateDocument: async (id: string, document: Document, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
             // verify required parameter 'id' is not null or undefined
             assertParamExists('updateDocument', 'id', id)
             // verify required parameter 'document' is not null or undefined
@@ -265,11 +265,11 @@ export const DocsApiFp = function(configuration?: Configuration) {
         /**
          * 
          * @summary Delete a document
-         * @param {number} id ID of document to delete
+         * @param {string} id ID of document to delete
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async deleteDocument(id: number, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Document>> {
+        async deleteDocument(id: string, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Document>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.deleteDocument(id, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
@@ -297,12 +297,12 @@ export const DocsApiFp = function(configuration?: Configuration) {
         /**
          * 
          * @summary Update a document
-         * @param {number} id ID of document to update
+         * @param {string} id ID of document to update
          * @param {Document} document Document to update
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async updateDocument(id: number, document: Document, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Document>> {
+        async updateDocument(id: string, document: Document, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Document>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.updateDocument(id, document, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
@@ -329,11 +329,11 @@ export const DocsApiFactory = function (configuration?: Configuration, basePath?
         /**
          * 
          * @summary Delete a document
-         * @param {number} id ID of document to delete
+         * @param {string} id ID of document to delete
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        deleteDocument(id: number, options?: any): AxiosPromise<Document> {
+        deleteDocument(id: string, options?: any): AxiosPromise<Document> {
             return localVarFp.deleteDocument(id, options).then((request) => request(axios, basePath));
         },
         /**
@@ -358,12 +358,12 @@ export const DocsApiFactory = function (configuration?: Configuration, basePath?
         /**
          * 
          * @summary Update a document
-         * @param {number} id ID of document to update
+         * @param {string} id ID of document to update
          * @param {Document} document Document to update
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        updateDocument(id: number, document: Document, options?: any): AxiosPromise<Document> {
+        updateDocument(id: string, document: Document, options?: any): AxiosPromise<Document> {
             return localVarFp.updateDocument(id, document, options).then((request) => request(axios, basePath));
         },
     };
@@ -388,12 +388,12 @@ export interface DocsApiInterface {
     /**
      * 
      * @summary Delete a document
-     * @param {number} id ID of document to delete
+     * @param {string} id ID of document to delete
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof DocsApiInterface
      */
-    deleteDocument(id: number, options?: AxiosRequestConfig): AxiosPromise<Document>;
+    deleteDocument(id: string, options?: AxiosRequestConfig): AxiosPromise<Document>;
 
     /**
      * 
@@ -417,13 +417,13 @@ export interface DocsApiInterface {
     /**
      * 
      * @summary Update a document
-     * @param {number} id ID of document to update
+     * @param {string} id ID of document to update
      * @param {Document} document Document to update
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof DocsApiInterface
      */
-    updateDocument(id: number, document: Document, options?: AxiosRequestConfig): AxiosPromise<Document>;
+    updateDocument(id: string, document: Document, options?: AxiosRequestConfig): AxiosPromise<Document>;
 
 }
 
@@ -449,12 +449,12 @@ export class DocsApi extends BaseAPI implements DocsApiInterface {
     /**
      * 
      * @summary Delete a document
-     * @param {number} id ID of document to delete
+     * @param {string} id ID of document to delete
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof DocsApi
      */
-    public deleteDocument(id: number, options?: AxiosRequestConfig) {
+    public deleteDocument(id: string, options?: AxiosRequestConfig) {
         return DocsApiFp(this.configuration).deleteDocument(id, options).then((request) => request(this.axios, this.basePath));
     }
 
@@ -484,13 +484,13 @@ export class DocsApi extends BaseAPI implements DocsApiInterface {
     /**
      * 
      * @summary Update a document
-     * @param {number} id ID of document to update
+     * @param {string} id ID of document to update
      * @param {Document} document Document to update
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof DocsApi
      */
-    public updateDocument(id: number, document: Document, options?: AxiosRequestConfig) {
+    public updateDocument(id: string, document: Document, options?: AxiosRequestConfig) {
         return DocsApiFp(this.configuration).updateDocument(id, document, options).then((request) => request(this.axios, this.basePath));
     }
 }

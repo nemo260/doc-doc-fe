@@ -9,7 +9,7 @@ import { uuidv4 } from '../../utils/utils';
   shadow: true,
 })
 export class DocDocEdit {
-  @State() document: { id?: string, title: string, patient: string, date: string, report: string } = {
+  @State() document: { id: string, title: string, patient: string, date: string, report: string } = {
     id: '',
     title: '',
     patient: '',
@@ -57,13 +57,7 @@ export class DocDocEdit {
   }
 
   async updateDocument() {
-    const response = await fetch(`http://localhost:8080/api/doc/${this.document.id}`, {
-      method: 'PUT',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify(this.document)
-    });
+    const response = await DocsApiFactory(undefined, this.apiBase).updateDocument(this.documentId, this.document);
 
     if (response.status === 200) {
       this.close.emit('close');
@@ -74,20 +68,10 @@ export class DocDocEdit {
 
   async createDocument() {
     this.document.id = uuidv4();
-    const response = await fetch(`http://localhost:8080/api/doc`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify(this.document)
-    });
-
-    console.log(response.json());
+    const response = await DocsApiFactory(undefined, this.apiBase).addDocument(this.document);
     if (response.status === 201) {
-      console.log(response.status);
       this.close.emit('close');
     } else {
-      console.log(response.status);
       console.log('Failed to create document');
     }
   }

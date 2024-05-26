@@ -41,9 +41,7 @@ export class DocDocList {
   }
 
   async handleDeleteClick(id: string) {
-    const response = await fetch(`http://localhost:8080/api/doc/${id}`, {
-      method: 'DELETE'
-    });
+    const response = await DocsApiFactory(undefined, this.apiBase).deleteDocument(id);
     if (response.status === 200) {
       this.docs = this.docs.filter(doc => doc.id !== id);
     } else {
