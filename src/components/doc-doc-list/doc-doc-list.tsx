@@ -64,6 +64,7 @@ export class DocDocList {
 
     return (
       <Host class="app-container">
+        <p>Autor: Martin Nemec</p>
         {this.errorMessage ? <div class="error">{this.errorMessage}</div> :
         <md-list>
           <md-list-item>
